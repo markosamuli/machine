@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Installing Vagrant and Virtualbox..."
+./setup --tags=vagrant,virtualbox
+
+echo "Starting Vagrant test VM..."
+vagrant up --no-provision
+
+echo "Running Ansible playbooks with Vagrant..."
+vagrant provision
