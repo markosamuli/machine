@@ -1,7 +1,7 @@
-- name: Install VLC
+- name: Ubuntu | Install VLC
   package: name=vlc
   when: is_ubuntu
 
-- name: Install VLC
+- name: OS X | Install VLC
   homebrew_cask: name=vlc
   when: is_osx

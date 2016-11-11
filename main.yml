@@ -11,38 +11,47 @@
   tasks:
     # essentials:
     - include: tasks/apt.yml
-    - include: tasks/homebrew.yml
+    #- include: tasks/homebrew.yml
     - include: tasks/core.yml
-    - include: tasks/dotfiles.yml
+    #- include: tasks/dotfiles.yml
+
+    # Install programming languages
+    - include: tasks/python.yml
+    - include: tasks/golang.yml
+    - include: tasks/node.yml
+
+    # Docker installs Kernel updates, install before other software
+    - include: tasks/docker.yml
+
+    # Install Vagrant and Virtualbox early as well
+    - include: tasks/vagrant.yml
+    - include: tasks/virtualbox.yml
 
     # specific stuff than can be commented out:
     - include: tasks/atom.yml
     - include: tasks/awscli.yml
     - include: tasks/chrome.yml
     - include: tasks/dbeaver.yml
-    - include: tasks/diffmerge.yml
-    - include: tasks/docker.yml
-    - include: tasks/dropbox.yml
-    - include: tasks/golang.yml
-    - include: tasks/google-drive.yml
-    - include: tasks/intellij.yml
-    - include: tasks/ngrok.yml
-    - include: tasks/node.yml
-    - include: tasks/postgres.yml
-    - include: tasks/python.yml
-    - include: tasks/quicklook.yml
-    - include: tasks/ruby.yml
-    - include: tasks/skype.yml
+    # - include: tasks/diffmerge.yml
+    # - include: tasks/dropbox.yml
+    # - include: tasks/google-drive.yml
+    # - include: tasks/intellij.yml
+    # - include: tasks/ngrok.yml
+    # - include: tasks/postgres.yml
+    - include: tasks/pycharm.yml
+    # - include: tasks/quicklook.yml
+    # - include: tasks/ruby.yml
+    # - include: tasks/skype.yml
     - include: tasks/slack.yml
-    - include: tasks/slate.yml
+    # - include: tasks/slate.yml
     - include: tasks/spotify.yml
-    - include: tasks/sublime-text.yml
+    # - include: tasks/sublime-text.yml
     - include: tasks/telegram.yml
     - include: tasks/terminal.yml
     - include: tasks/visual-studio-code.yml
     - include: tasks/vlc.yml
-    - include: tasks/vpn.yml
-    - include: tasks/whatsapp.yml
-  roles:
-    - caarlos0.java-dev
-    - caarlos0.eclipse
+    # - include: tasks/vpn.yml
+    # - include: tasks/whatsapp.yml
+  #roles:
+  #  - caarlos0.java-dev
+  #  - caarlos0.eclipse

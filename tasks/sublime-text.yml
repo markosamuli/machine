@@ -1,10 +1,10 @@
-- name: Add SublimeText repository
+- name: Ubuntu | Add SublimeText repository
   apt_repository: repo='ppa:webupd8team/sublime-text-3'
   when: is_ubuntu
-- name: Install SublimeText
+- name: Ubuntu | Install SublimeText
   package: name=sublime-text-installer
   when: is_ubuntu
 
-- name: Install SublimeText
+- name: OS X | Install SublimeText
   homebrew_cask: name=sublime-text
   when: is_osx

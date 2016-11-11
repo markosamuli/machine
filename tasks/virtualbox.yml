@@ -1,0 +1,4 @@
+- name: Ubuntu | Install Virtualbox
+  package: name=virtualbox
+  when: is_ubuntu
+  tags: virtualbox

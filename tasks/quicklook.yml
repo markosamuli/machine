@@ -1,5 +1,5 @@
 # https://github.com/sindresorhus/quick-look-plugins
-- name: Install QuickLook plugins
+- name: OS X | Install QuickLook plugins
   homebrew_cask: name={{ item }}
   with_items:
     - betterzipql

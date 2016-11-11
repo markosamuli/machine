@@ -1,11 +1,11 @@
 # TODO: simplify this once ansible 2.1 is out
-- name: Add Atom PPA
+- name: Ubuntu | Add Atom PPA
   apt_repository: repo='ppa:webupd8team/atom'
   when: is_ubuntu
-- name: Install Atom
+- name: Ubuntu | Install Atom
   package: name=atom
   when: is_ubuntu
 
-- name: Install Atom
+- name: OS X | Install Atom
   homebrew_cask: name=atom
   when: is_osx

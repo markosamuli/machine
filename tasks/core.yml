@@ -1,34 +1,36 @@
-- name: Install Ubuntu-only core packages
+- name: Ubuntu | Install Ubuntu-only core packages
   package: name={{ item }}
   when: is_ubuntu
   with_items:
     - build-essential
-    - openssh-server
-    - smbclient
-    - xsel
+    - apt-transport-https 
+    - ca-certificates
+    # - openssh-server
+    # - smbclient
+    # - xsel
 
-- name: Install ubuntu-restricted-extras
-  package: name=ubuntu-restricted-extras
-  when: is_ubuntu
-  ignore_errors: True # case multiverse repo is not enabled
+# - name: Install ubuntu-restricted-extras
+#   package: name=ubuntu-restricted-extras
+#   when: is_ubuntu
+#   ignore_errors: True # case multiverse repo is not enabled
 
-- name: Install OSX-only core packages
-  package: name={{ item }}
-  when: is_osx
-  with_items:
-    - coreutils
-    - findutils
-    - gawk
-    - gnu-getopt
-    - gnu-indent
-    - gnu-sed
-    - gnu-tar
-    - gnutls
-    - gpg
-    - grc
-    - pstree
-    - unrar
-    - watch
+# - name: Install OSX-only core packages
+#   package: name={{ item }}
+#   when: is_osx
+#   with_items:
+#     - coreutils
+#     - findutils
+#     - gawk
+#     - gnu-getopt
+#     - gnu-indent
+#     - gnu-sed
+#     - gnu-tar
+#     - gnutls
+#     - gpg
+#     - grc
+#     - pstree
+#     - unrar
+#     - watch
 
 - name: Install core packages
   package: name={{ item }}

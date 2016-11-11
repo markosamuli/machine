@@ -1,4 +1,4 @@
-- name: Add golang repository
+- name: Ubuntu | Add golang repository
   apt_repository: repo='ppa:ubuntu-lxc/lxd-stable'
   when: is_ubuntu
 - name: Install Golang
