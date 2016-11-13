@@ -1,3 +1,11 @@
+---
+
+- name: Set GOLANG projects path
+  set_fact:
+    local_home: "{{ lookup('env','HOME') }}"
+    golang_path: "Projects/golang"
+  tags: golang
+
 - name: Ubuntu | Add golang repository
   apt_repository: repo='ppa:ubuntu-lxc/lxd-stable'
   when: is_ubuntu
@@ -27,3 +35,11 @@
   become: False
   when: zshrc_stat.stat.exists == True
   tags: golang
+
+- name: Add $GOPATH/bin to PATH in $HOME/.zshrc
+  lineinfile: 
+    dest: "{{ local_home }}/.zshrc" 
+    line: "export PATH=$PATH:$GOPATH/bin"
+  become: False
+  when: zshrc_stat.stat.exists == True
+  tags: golang 
