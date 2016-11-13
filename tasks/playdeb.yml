@@ -1,0 +1,19 @@
+---
+
+- name: Ubuntu | Set PlayDeb repository URL and name
+  set_fact:
+    playdeb_repo_url: "http://archive.getdeb.net/{{ ansible_distribution | lower }}"
+    playdeb_repo: "{{ ansible_distribution_release }}-getdeb"
+    playdeb_apt_key_url: "http://archive.getdeb.net/getdeb-archive.key"
+  when: is_ubuntu
+  tags: playdeb
+
+- name: Ubuntu | Import the PlayDeb public key
+  apt_key: url="{{ playdeb_apt_key_url }}"
+  when: is_ubuntu
+  tags: playdeb 
+
+- name: Ubuntu | Add the PlayDeb URI as a package source
+  apt_repository: repo='deb {{ playdeb_repo_url }} {{ playdeb_repo}} games'
+  when: is_ubuntu
+  tags: playdeb

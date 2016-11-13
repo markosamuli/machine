@@ -42,6 +42,7 @@
     # - include: tasks/intellij.yml
     # - include: tasks/ngrok.yml
     # - include: tasks/postgres.yml
+    - include: tasks/playdeb.yml
     - include: tasks/pycharm.yml
     # - include: tasks/quicklook.yml
     # - include: tasks/ruby.yml
