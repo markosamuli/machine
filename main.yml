@@ -1,6 +1,8 @@
 - hosts: localhost
   vars:
     - node_version: 6
+    - local_home: "{{ lookup('env','HOME') }}"
+    - golang_path: "Projects/golang"
     - is_ci: "{{ ansible_env.TRAVIS_JOB_ID is defined }}"
     - isnt_ci: "{{ ansible_env.TRAVIS_JOB_ID is not defined }}"
     - is_osx: "{{ ansible_os_family == 'Darwin' }}"
