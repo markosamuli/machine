@@ -1,2 +1,7 @@
 - name: Install AWS Cli tools
   pip: name=awscli
+  tags: aws
+
+- name: Install AWS Shell
+  pip: name=aws-shell
+  tags: aws
