@@ -36,6 +36,10 @@
     # specific stuff than can be commented out:
     - include: tasks/atom.yml
     - include: tasks/awscli.yml
+    
+    - include: tasks/corebird.yml
+      when: is_ubuntu
+
     - include: tasks/google-cloud-sdk.yml
     - include: tasks/chrome.yml
     - include: tasks/dbeaver.yml
