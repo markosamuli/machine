@@ -9,12 +9,6 @@
 
 - debug: var=add_repository_key
 
-- name: Ubuntu | HTTPS APT transport for Docker repository
-  apt:
-    name: apt-transport-https
-    state: present
-  when: is_ubuntu13_plus
-
 - name: Ubuntu | Add Docker repository
   apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distribution_release }} main'
   when: is_ubuntu13_plus

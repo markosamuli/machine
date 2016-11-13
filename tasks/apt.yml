@@ -2,3 +2,10 @@
   apt: update_cache=yes
   when: is_ubuntu
   tags: apt
+
+- name: Ubuntu | Add APT support for transport over HTTPS
+  apt:
+    name: apt-transport-https
+    state: present
+  when: is_ubuntu
+  tags: apt
