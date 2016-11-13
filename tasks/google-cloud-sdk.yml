@@ -1,0 +1,30 @@
+---
+
+- name: Ubuntu | Create .config/gcloud directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/gcloud"
+    state: directory
+  become: False
+  when: is_ubuntu
+  tags: google-cloud-sdk
+
+- name: Ubuntu | Create an environment variable for the correct distribution
+  set_fact:
+    cloud_sdk_repo: "cloud-sdk-{{ ansible_distribution_release }}"
+  when: is_ubuntu
+  tags: google-cloud-sdk
+
+- name: Ubuntu | Add the Cloud SDK distribution URI as a package source
+  apt_repository: repo='deb https://packages.cloud.google.com/apt {{ cloud_sdk_repo }} main'
+  when: is_ubuntu
+  tags: google-cloud-sdk
+
+- name: Ubuntu | Import the Google Cloud Platform public key
+  apt_key: url=https://packages.cloud.google.com/apt/doc/apt-key.gpg
+  when: is_ubuntu
+  tags: google-cloud-sdk
+
+- name: Ubuntu | Install the Cloud SDK
+  apt: name=google-cloud-sdk
+  when: is_ubuntu
+  tags: google-cloud-sdk
