@@ -3,11 +3,19 @@
   when: is_ubuntu
   with_items:
     - build-essential
-    - apt-transport-https 
-    - ca-certificates
-    # - openssh-server
-    # - smbclient
-    # - xsel
+    - xsel
+
+- name: Ubuntu | Install OpenSSH server
+  package: name={{ item }}
+  when: is_ubuntu
+  with_items:
+    - openssh-server
+
+- name: Ubuntu | Install Samba client
+  package: name={{ item }}
+  when: is_ubuntu
+  with_items:
+    - smbclient
 
 # - name: Install ubuntu-restricted-extras
 #   package: name=ubuntu-restricted-extras

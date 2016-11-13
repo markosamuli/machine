@@ -5,7 +5,10 @@
 
 - name: Ubuntu | Add APT support for transport over HTTPS
   apt:
-    name: apt-transport-https
+    name: '{{ item }}'
     state: present
+  with_items:
+   - apt-transport-https
+   - ca-certificates
   when: is_ubuntu
   tags: apt
