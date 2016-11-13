@@ -1,0 +1,29 @@
+---
+
+- name: Ubuntu | Add ScudCloud repository
+  apt_repository: repo='ppa:rael-gc/scudcloud'
+  when: is_ubuntu13_plus
+  tags: slack
+
+- name: Ubuntu | Accept Microsoft EULA agreement for ttf-mscorefonts-installer
+  command: 'echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections'
+  when: is_ubuntu13_plus
+  tags: slack
+
+- name: Ubuntu | Install ScudCloud Slack client for Linux
+  package: name=scudcloud
+  when: is_ubuntu13_plus
+  tags: slack
+
+- name: Ubuntu | Override ScudCloud application icon
+  command: dpkg-divert --add --rename --divert /usr/share/pixmaps/scudcloud.png.real /usr/share/pixmaps/scudcloud.png
+  when: is_ubuntu
+  tags: slack
+
+- name: Ubuntu | Copy custom ScudCloud application icon file 
+  copy:
+    dest: /usr/share/pixmaps/scudcloud.png
+    src: files/scudcloud.png
+    mode: '0644'
+  when: is_ubuntu
+  tags: slack

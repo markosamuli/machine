@@ -45,6 +45,9 @@
     # - include: tasks/ruby.yml
     # - include: tasks/skype.yml
     - include: tasks/slack.yml
+      when: is_osx
+    - include: tasks/scudcloud.yml
+      when: is_ubuntu
     # - include: tasks/slate.yml
     - include: tasks/spotify.yml
     # - include: tasks/sublime-text.yml

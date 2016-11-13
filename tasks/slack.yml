@@ -1,28 +1,30 @@
 ---
 
-- name: Ubuntu | Add Slack node apt GPG key
-  apt_key: url=https://packagecloud.io/slacktechnologies/slack/gpgkey
+- name: Ubuntu | Install official Slack client
+  apt: deb=https://downloads.slack-edge.com/linux_releases/slack-desktop-2.2.1-amd64.deb
   when: is_ubuntu
   tags: slack
 
-- name: Ubuntu | Add Slack repository URL
-  set_fact:
-    slack_apt_repository_url: 'https://packagecloud.io/slacktechnologies/slack/{{ ansible_distribution | lower }}/'
-  when: is_ubuntu
-  tags: slack
+# - name: Ubuntu | Add Slack node apt GPG key
+#   apt_key: url=https://packagecloud.io/slacktechnologies/slack/gpgkey
+#   when: is_ubuntu
+#   tags: slack
 
-- name: Ubuntu | Add Slack repositories
-  apt_repository: repo='{{ item }}'
-  with_items:
-   - 'deb {{ slack_apt_repository_url}} {{ ansible_distribution_release }} main'
-   - 'deb-src {{ slack_apt_repository_url }} {{ ansible_distribution_release }} main'
-  when: is_ubuntu
-  tags: slack
+# - name: Ubuntu | Add Slack repository URL
+#   set_fact:
+#     slack_apt_repository_url: 'https://packagecloud.io/slacktechnologies/slack/{{ ansible_distribution | lower }}/'
+#   when: is_ubuntu
+#   tags: slack
 
-- name: Ubuntu | Install Slack
-  package: name=slack-desktop
-  when: is_ubuntu
-  tags: slack
+# - name: Ubuntu | Add Slack repositories
+#   apt_repository: repo='deb {{ slack_apt_repository_url}} {{ ansible_distribution_release }} main'
+#   when: is_ubuntu
+#   tags: slack
+
+# - name: Ubuntu | Install Slack
+#   package: name=slack-desktop
+#   when: is_ubuntu
+#   tags: slack
 
 - name: OS X | Install Slack
   homebrew_cask: name=slack
