@@ -27,3 +27,19 @@
     mode: '0644'
   when: is_ubuntu
   tags: slack
+
+- name: Ubuntu | Get LANGUAGE from env
+  set_fact:
+    language: "{{ lookup('env', 'LANGUAGE').split(':')[0] }}"
+  when: is_ubuntu
+  tags: slack
+
+- name: Ubuntu | Install hunspell spellchecking library and dependencies
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - hunspell-{{ language | lower | replace('_', '-') }} 
+    - libqtwebkit-qupzillaplugins 
+    - python3-hunspell
+  when: is_ubuntu
+  tags: slack
