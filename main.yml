@@ -20,6 +20,7 @@
     - include: tasks/python.yml
     - include: tasks/golang.yml
     - include: tasks/node.yml
+    - include: tasks/elixir.yml
 
     # Docker installs Kernel updates, install before other software
     - include: tasks/docker.yml
