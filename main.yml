@@ -41,8 +41,9 @@
       when: is_ubuntu
 
     - include: tasks/google-cloud-sdk.yml
-    - include: tasks/chrome.yml
+    - include: tasks/chrome.yml    
     - include: tasks/dbeaver.yml
+    - include: tasks/firefox.yml
     # - include: tasks/diffmerge.yml
     # - include: tasks/dropbox.yml
     # - include: tasks/google-drive.yml

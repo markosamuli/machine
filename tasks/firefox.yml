@@ -1,0 +1,8 @@
+---
+
+- name: Ubuntu | Install Firefox 
+  package: name=firefox
+  when: is_ubuntu
+  tags: 
+  - firefox
+  - browser
