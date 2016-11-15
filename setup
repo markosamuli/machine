@@ -25,7 +25,7 @@ elif test "$(uname)" = "Linux"; then
     sudo apt-get install -y ansible
   fi
   printf '\n%s\n%s\n' '[privilege_escalation]' 'become = True' >> ansible.cfg
-  sudo echo ""
+  sudo true | exit 1
 fi
 
 if test ! "$(which ansible)"; then
