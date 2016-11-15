@@ -21,6 +21,9 @@
     - include: tasks/python.yml
     - include: tasks/golang.yml
     - include: tasks/node.yml
+      when: is_osx
+      tags: node
+
     - include: tasks/elixir.yml
 
     # Docker installs Kernel updates, install before other software
@@ -79,6 +82,13 @@
     - include: tasks/vlc.yml
     # - include: tasks/vpn.yml
     # - include: tasks/whatsapp.yml
-  #roles:
+  
+- hosts: localhost
+  vars:
+    - nodejs_version: 6.x
+  roles:
+     - role: nodesource.node
+       when: ansible_distribution == 'Ubuntu'
+       tags: node
   #  - caarlos0.java-dev
   #  - caarlos0.eclipse

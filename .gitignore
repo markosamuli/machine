@@ -1,2 +1,3 @@
 main.retry
 .vagrant/
+roles/nodesource.*
