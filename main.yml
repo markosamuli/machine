@@ -24,6 +24,12 @@
       when: is_osx
       tags: node
 
+    - include: tasks/erlang.yml
+      when: is_ubuntu
+      tags:
+       - erlang
+       - elixir
+
     - include: tasks/elixir.yml
       tags: elixir
 
