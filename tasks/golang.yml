@@ -23,7 +23,8 @@
   become: False  
   tags: golang
 
-- stat: path="{{ local_home }}/.zshrc" 
+- name: Test if $HOME/.zshrc exists
+  stat: path="{{ local_home }}/.zshrc" 
   register: zshrc_stat
   become: False
   tags: golang
