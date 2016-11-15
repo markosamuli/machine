@@ -25,6 +25,7 @@
       tags: node
 
     - include: tasks/elixir.yml
+      tags: elixir
 
     # Docker installs Kernel updates, install before other software
     - include: tasks/docker.yml

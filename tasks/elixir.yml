@@ -3,24 +3,19 @@
 - name: Ubuntu | Create an environment variable for the correct distribution
   set_fact:
     erlang_repo_url: "https://packages.erlang-solutions.com/{{ ansible_distribution | lower }}"
-  when: is_ubuntu
-  tags: elixir
+  when: is_ubuntu15_plus
 
 - name: Ubuntu | Add Erlang Solutions as a package source
   apt_repository: repo='deb {{ erlang_repo_url }} {{ ansible_distribution_release }} contrib'
-  when: is_ubuntu
-  tags: elixir
+  when: is_ubuntu15_plus
 
 - name: Ubuntu | Import Erlang Solutions public key
   apt_key: url=https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
-  when: is_ubuntu
-  tags: elixir
+  when: is_ubuntu15_plus
 
 - name: Ubuntu | Install the Erlang/OTP platform and all of its applications
   apt: name=esl-erlang
-  when: is_ubuntu
-  tags: elixir
+  when: is_ubuntu15_plus
 
 - name: Install Elixir
   package: name=elixir
-  tags: elixir
