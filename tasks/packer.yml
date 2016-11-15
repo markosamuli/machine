@@ -1,0 +1,43 @@
+---
+
+- name: Set Packer installation variables
+  set_fact:
+    local_home: "{{ lookup('env','HOME') }}"
+    packer_version: "0.11.0"
+    packer_path: "/opt/packer"
+  when: is_linux
+
+- name: Set Packer package download URL (64bit)
+  set_fact:
+    packer_url: "https://releases.hashicorp.com/packer/{{ packer_version }}/packer_{{ packer_version }}_linux_amd64.zip"    
+  when: is_linux and ansible_architecture == "x86_64"
+
+- name: Create Packer directory
+  file:
+    path: "{{ packer_path }}"
+    state: directory
+  when: is_linux
+
+- name: Download and extract packer files
+  unarchive: 
+    src: "{{ packer_url }}"
+    dest: "{{ packer_path }}"
+    remote_src: yes
+  when: is_linux
+
+- name: Test if $HOME/.zshrc exists
+  stat: path="{{ local_home }}/.zshrc" 
+  register: zshrc_stat
+  become: False
+  when: is_linux
+
+- name: Add Packer to PATH in $HOME/.zshrc
+  lineinfile: 
+    dest: "{{ local_home }}/.zshrc" 
+    line: "export PATH={{ packer_path }}:$PATH"
+  become: False
+  when: is_linux and zshrc_stat.stat.exists == True
+
+- name: OS X | Install Packer
+  homebrew: name=packer
+  when: is_osx

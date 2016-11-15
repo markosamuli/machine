@@ -4,6 +4,7 @@
     - is_ci: "{{ ansible_env.TRAVIS_JOB_ID is defined }}"
     - isnt_ci: "{{ ansible_env.TRAVIS_JOB_ID is not defined }}"
     - is_osx: "{{ ansible_os_family == 'Darwin' }}"
+    - is_linux: "{{ ansible_system == 'Linux' }}"
     - is_ubuntu: "{{ ansible_distribution == 'Ubuntu' }}"
     - is_ubuntu13_plus: "{{ is_ubuntu and ansible_distribution_version|int >= 13 }}"
     - is_ubuntu15_plus: "{{ is_ubuntu and ansible_distribution_version|int >= 15 }}"
@@ -43,6 +44,7 @@
     - include: tasks/google-cloud-sdk.yml
     - include: tasks/chrome.yml    
     - include: tasks/dbeaver.yml
+
     - include: tasks/firefox.yml
     # - include: tasks/diffmerge.yml
     # - include: tasks/dropbox.yml
@@ -50,6 +52,9 @@
     # - include: tasks/intellij.yml
     # - include: tasks/ngrok.yml
     # - include: tasks/postgres.yml
+    - include: tasks/packer.yml
+      tags: packer
+      
     - include: tasks/playdeb.yml
     - include: tasks/pycharm.yml
     # - include: tasks/quicklook.yml
@@ -66,6 +71,9 @@
     # - include: tasks/sublime-text.yml
     - include: tasks/telegram.yml
     - include: tasks/terminal.yml
+    - include: tasks/terraform.yml
+      tags: terraform
+
     - include: tasks/visual-studio-code.yml
     - include: tasks/vlc.yml
     # - include: tasks/vpn.yml
