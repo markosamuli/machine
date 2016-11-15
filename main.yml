@@ -37,6 +37,7 @@
     # specific stuff than can be commented out:
     - include: tasks/atom.yml
     - include: tasks/awscli.yml
+      tags: aws
     
     - include: tasks/corebird.yml
       when: is_ubuntu
@@ -54,7 +55,7 @@
     # - include: tasks/postgres.yml
     - include: tasks/packer.yml
       tags: packer
-      
+
     - include: tasks/playdeb.yml
     - include: tasks/pycharm.yml
     # - include: tasks/quicklook.yml
