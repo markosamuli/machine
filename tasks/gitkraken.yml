@@ -1,0 +1,5 @@
+---
+
+- name: Install GitKraken
+  apt: deb=https://release.gitkraken.com/linux/gitkraken-amd64.deb
+  when: is_ubuntu and ansible_architecture == "x86_64"
