@@ -2,8 +2,12 @@
   package: name={{ item }}
   with_items:
     - network-manager-openvpn
+    - network-manager-openvpn-gnome
+    - network-manager-pptp
+    - network-manager-vpnc
     - openvpn
   when: is_ubuntu
+  
 - name: OS X | Install Viscosity
   homebrew_cask: name=viscosity
   when: is_osx

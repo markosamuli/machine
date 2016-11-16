@@ -87,7 +87,9 @@
 
     - include: tasks/visual-studio-code.yml
     - include: tasks/vlc.yml
-    # - include: tasks/vpn.yml
+    - include: tasks/vpn.yml
+      tags: vpn
+
     # - include: tasks/whatsapp.yml
   
 - hosts: localhost
