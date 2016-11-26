@@ -73,7 +73,9 @@
 
     - include: tasks/firefox.yml
     # - include: tasks/diffmerge.yml
-    # - include: tasks/dropbox.yml
+    - include: tasks/dropbox.yml
+      tags: dropbox
+      
     # - include: tasks/google-drive.yml
     # - include: tasks/intellij.yml
     # - include: tasks/ngrok.yml

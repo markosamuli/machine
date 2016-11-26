@@ -1,3 +1,9 @@
+---
+
+- name: Ubuntu | Install python-gpgme needed for Dropbox binary signature verification
+  apt: name=python-gpgme
+  when: is_ubuntu
+
 - name: Ubuntu | Install Dropbox
   apt: deb=https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
   when: is_ubuntu
