@@ -24,7 +24,9 @@ elif test "$(uname)" = "Linux"; then
     sudo apt-get update
     sudo apt-get install -y ansible
   fi
-  printf '\n%s\n%s\n' '[privilege_escalation]' 'become = True' >> ansible.cfg
+  if ! cat ansible.cfg | grep -q "become = True"; then
+    printf '\n%s\n%s\n' '[privilege_escalation]' 'become = True' >> ansible.cfg
+  fi
   sudo true | exit 1
 fi
 
