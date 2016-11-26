@@ -14,4 +14,6 @@ install:
 script:
   - git config --global user.name "Test name"
   - git config --global user.email "test@localhost"
-  - ./setup
+  
+  # GitKraken
+  - ./setup --tags=gitkraken
