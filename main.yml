@@ -51,7 +51,9 @@
     
     - include: tasks/corebird.yml
       when: is_ubuntu
-
+    - include: tasks/gitkraken.yml
+      tags: gitkraken
+      
     - include: tasks/google-cloud-sdk.yml
     - include: tasks/chrome.yml    
     - include: tasks/dbeaver.yml

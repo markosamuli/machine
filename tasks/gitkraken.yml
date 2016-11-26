@@ -1,0 +1,9 @@
+---
+
+- name: Ubuntu | Install GitKraken
+  apt: deb=https://release.gitkraken.com/linux/gitkraken-amd64.deb
+  when: is_ubuntu and ansible_architecture == "x86_64"
+
+- name: OS X | Install GitKraken
+  homebrew_cask: name=gitkraken
+  when: is_osx
