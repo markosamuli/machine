@@ -12,6 +12,8 @@ env:
   - ANSIBLE_TAGS=gitkraken
   # Elixir and Erlang
   - ANSIBLE_TAGS=erlang,elixir
+  # Golang
+  - ANSIBLE_TAGS=golang
 
 notifications:
   email: false

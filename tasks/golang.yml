@@ -4,16 +4,13 @@
   set_fact:
     local_home: "{{ lookup('env','HOME') }}"
     golang_path: "Projects/golang"
-  tags: golang
 
 - name: Ubuntu | Add golang repository
   apt_repository: repo='ppa:ubuntu-lxc/lxd-stable'
   when: is_ubuntu
-  tags: golang
 
 - name: Install Golang
   package: name=golang
-  tags: golang
 
 - name: Create golang projects directory
   file:
@@ -21,13 +18,11 @@
     state: directory
     recurse: yes
   become: False  
-  tags: golang
 
 - name: Test if $HOME/.zshrc exists
   stat: path="{{ local_home }}/.zshrc" 
   register: zshrc_stat
   become: False
-  tags: golang
 
 - name: Add GOPATH to $HOME/.zshrc
   lineinfile: 
@@ -35,12 +30,10 @@
     line: "export GOPATH=$HOME/{{ golang_path }}"
   become: False
   when: zshrc_stat.stat.exists == True
-  tags: golang
 
 - name: Add $GOPATH/bin to PATH in $HOME/.zshrc
   lineinfile: 
     dest: "{{ local_home }}/.zshrc" 
     line: "export PATH=$PATH:$GOPATH/bin"
   become: False
-  when: zshrc_stat.stat.exists == True
-  tags: golang 
+  when: zshrc_stat.stat.exists == True 

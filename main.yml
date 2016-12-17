@@ -30,6 +30,8 @@
     # Install programming languages
     - include: tasks/python.yml
     - include: tasks/golang.yml
+      tags: golang
+      
     - include: tasks/node.yml
       when: is_osx
       tags: node
