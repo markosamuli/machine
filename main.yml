@@ -108,22 +108,26 @@
     - erlang_version: 19.2
   roles:
 
-     - role: nodesource.node
-       when: ansible_distribution == 'Ubuntu'
-       tags: node
+    - role: nodesource.node
+      when: is_ubuntu
+      tags: 
+      - node
 
-     - role: markosamuli.visual-studio-code
-       tags: 
-        - visual-studio-code
-        - vscode
+    - role: markosamuli.visual-studio-code
+      tags: 
+      - visual-studio-code
+      - vscode
 
-     - role: kbrebanov.erlang
-       tags:
-        - elixir
-        - erlang
+    # The role fails if trying to run it on OS X
+    - role: kbrebanov.erlang
+      when: is_ubuntu
+      tags:
+      - elixir
+      - erlang
 
 - hosts: localhost
   tasks:
     # Needs to be instaled after Erlang on Ubuntu
     - include: tasks/elixir.yml
-      tags: elixir
+      tags: 
+       - elixir
