@@ -87,7 +87,8 @@
     - include: tasks/terraform.yml
       tags: terraform
 
-    - include: tasks/visual-studio-code.yml
+    # Using markosamuli.visual-studio-code instead
+    # - include: tasks/visual-studio-code.yml
     - include: tasks/vlc.yml
     - include: tasks/vpn.yml
       tags: vpn
@@ -101,5 +102,7 @@
      - role: nodesource.node
        when: ansible_distribution == 'Ubuntu'
        tags: node
+     - role: markosamuli.visual-studio-code
+       tags: visual-studio-code
   #  - caarlos0.java-dev
   #  - caarlos0.eclipse
