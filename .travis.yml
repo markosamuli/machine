@@ -6,17 +6,36 @@ python:
 os:
   - linux
   - osx
+
 notifications:
   email: false
+
 install: 
   - sudo pip install urllib3 pyopenssl ndg-httpsclient pyasn1
   - sudo pip install git+git://github.com/ansible/ansible.git@stable-2.2
+
 script:
   - git config --global user.name "Test name"
   - git config --global user.email "test@localhost"
   
+  # Run init only
+  - ./setup --skip-playbook
+
+  # Check syntax only
+  - ansible-playbook main.yml --syntax-check
+
   # GitKraken
-  - ./setup --tags=gitkraken
+  - ansible-playbook main.yml --tags=gitkraken
+  - >
+    ansible-playbook main.yml --tags=gitkraken
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
 
   # Elixir and Erlang
-  - ./setup --tags=erlang,elixir
+  - ansible-playbook main.yml --tags=erlang,elixir
+  - >
+    ansible-playbook main.yml --tags=erlang,elixir
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
