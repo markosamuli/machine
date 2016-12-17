@@ -17,3 +17,6 @@ script:
   
   # GitKraken
   - ./setup --tags=gitkraken
+
+  # Elixir and Erlang
+  - ./setup --tags=erlang,elixir
