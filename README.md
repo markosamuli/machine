@@ -17,3 +17,4 @@ quite nicely as I can keep all the files in one place.
 - [nodesource.node](https://github.com/nodesource/ansible-nodejs-role)
 - [kbrebanov.erlang](https://github.com/kbrebanov/ansible-erlang)
 - [markosamuli.visual-studio-code](https://github.com/markosamuli/ansible-visual-studio-code)
+- [markosamuli.terraform](https://github.com/markosamuli/ansible-terraform)
