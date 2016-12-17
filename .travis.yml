@@ -11,7 +11,7 @@ env:
   # GitKraken
   - ANSIBLE_TAGS=gitkraken
   # Elixir and Erlang
-  - ANSIBLE_TAGS=gitkerlang,elixirraken
+  - ANSIBLE_TAGS=erlang,elixir
 
 notifications:
   email: false
