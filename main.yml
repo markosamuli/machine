@@ -24,11 +24,11 @@
       when: is_osx
       tags: node
 
-    - include: tasks/erlang.yml
-      when: is_ubuntu
-      tags:
-       - erlang
-       - elixir
+    # - include: tasks/erlang.yml
+    #   when: is_ubuntu
+    #   tags:
+    #    - erlang
+    #    - elixir
 
     - include: tasks/elixir.yml
       tags: elixir
@@ -98,11 +98,19 @@
 - hosts: localhost
   vars:
     - nodejs_version: 6.x
+    - erlang_version: 19.2
   roles:
+
      - role: nodesource.node
        when: ansible_distribution == 'Ubuntu'
        tags: node
+
      - role: markosamuli.visual-studio-code
        tags: 
         - visual-studio-code
         - vscode
+
+     - role: kbrebanov.erlang
+       tags:
+        - elixir
+        - erlang

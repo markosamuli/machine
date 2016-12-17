@@ -1,5 +1,6 @@
 # - src: caarlos0.java-dev
 # - src: caarlos0.eclipse
 - src: nodesource.node
+- src: kbrebanov.erlang
 - src: https://github.com/markosamuli/ansible-visual-studio-code
   name: markosamuli.visual-studio-code
