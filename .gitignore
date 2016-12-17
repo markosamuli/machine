@@ -1,4 +1,6 @@
 main.retry
 .vagrant/
+
+# Ignore external roles
 roles/nodesource.*
 roles/markosamuli.*

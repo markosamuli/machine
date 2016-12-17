@@ -103,6 +103,6 @@
        when: ansible_distribution == 'Ubuntu'
        tags: node
      - role: markosamuli.visual-studio-code
-       tags: visual-studio-code
-  #  - caarlos0.java-dev
-  #  - caarlos0.eclipse
+       tags: 
+        - visual-studio-code
+        - vscode
