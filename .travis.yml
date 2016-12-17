@@ -20,6 +20,11 @@ install:
   - sudo pip install urllib3 pyopenssl ndg-httpsclient pyasn1
   - sudo pip install git+git://github.com/ansible/ansible.git@stable-2.2
 
+
+before_script:
+  # https://github.com/travis-ci/travis-ci/issues/6307
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rvm get head || true; fi
+
 script:
   - git config --global user.name "Test name"
   - git config --global user.email "test@localhost"
