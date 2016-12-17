@@ -7,6 +7,12 @@ os:
   - linux
   - osx
 
+env:
+  # GitKraken
+  - ANSIBLE_TAGS=gitkraken
+  # Elixir and Erlang
+  - ANSIBLE_TAGS=gitkerlang,elixirraken
+
 notifications:
   email: false
 
@@ -24,18 +30,10 @@ script:
   # Check syntax only
   - ansible-playbook main.yml --syntax-check
 
-  # GitKraken
-  - ansible-playbook main.yml --tags=gitkraken
+  # Run playbooks with the selected tags only
+  - ansible-playbook main.yml --tags=$ANSIBLE_TAGS
   - >
-    ansible-playbook main.yml --tags=gitkraken
-    | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-
-  # Elixir and Erlang
-  - ansible-playbook main.yml --tags=erlang,elixir
-  - >
-    ansible-playbook main.yml --tags=erlang,elixir
+    ansible-playbook main.yml --tags=$ANSIBLE_TAGS
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
