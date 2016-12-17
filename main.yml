@@ -1,14 +1,24 @@
 - hosts: localhost
+  tasks:
+
+    - name: Set OS and environment facts
+      set_fact:
+        is_ci: "{{ ansible_env.TRAVIS_JOB_ID is defined }}"
+        isnt_ci: "{{ ansible_env.TRAVIS_JOB_ID is not defined }}"
+        is_osx: "{{ ansible_os_family == 'Darwin' }}"
+        is_linux: "{{ ansible_system == 'Linux' }}"
+        is_ubuntu: "{{ ansible_distribution == 'Ubuntu' }}"
+      tags: always
+
+    - name: Set Ubuntu version facts
+      set_fact:
+        is_ubuntu13_plus: "{{ is_ubuntu and ansible_distribution_version|int >= 13 }}"
+        is_ubuntu15_plus: "{{ is_ubuntu and ansible_distribution_version|int >= 15 }}"
+      tags: always
+
+- hosts: localhost
   vars:
     - node_version: 6
-    - is_ci: "{{ ansible_env.TRAVIS_JOB_ID is defined }}"
-    - isnt_ci: "{{ ansible_env.TRAVIS_JOB_ID is not defined }}"
-    - is_osx: "{{ ansible_os_family == 'Darwin' }}"
-    - is_linux: "{{ ansible_system == 'Linux' }}"
-    - is_ubuntu: "{{ ansible_distribution == 'Ubuntu' }}"
-    - is_ubuntu13_plus: "{{ is_ubuntu and ansible_distribution_version|int >= 13 }}"
-    - is_ubuntu15_plus: "{{ is_ubuntu and ansible_distribution_version|int >= 15 }}"
-
   tasks:
 
     # essentials:
@@ -29,9 +39,6 @@
     #   tags:
     #    - erlang
     #    - elixir
-
-    - include: tasks/elixir.yml
-      tags: elixir
 
     # Docker installs Kernel updates, install before other software
     - include: tasks/docker.yml
@@ -114,3 +121,9 @@
        tags:
         - elixir
         - erlang
+
+- hosts: localhost
+  tasks:
+    # Needs to be instaled after Erlang on Ubuntu
+    - include: tasks/elixir.yml
+      tags: elixir
