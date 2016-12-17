@@ -31,7 +31,7 @@
     - include: tasks/python.yml
     - include: tasks/golang.yml
       tags: golang
-      
+
     - include: tasks/node.yml
       when: is_osx
       tags: node
@@ -93,8 +93,6 @@
     # - include: tasks/sublime-text.yml
     - include: tasks/telegram.yml
     - include: tasks/terminal.yml
-    - include: tasks/terraform.yml
-      tags: terraform
 
     # Using markosamuli.visual-studio-code instead
     # - include: tasks/visual-studio-code.yml
@@ -126,6 +124,11 @@
       tags:
       - elixir
       - erlang
+
+    
+    - role: markosamuli.terraform
+      tags:
+      - terraform
 
 - hosts: localhost
   tasks:
