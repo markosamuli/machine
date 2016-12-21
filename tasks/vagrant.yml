@@ -1,4 +1,16 @@
 - name: Ubuntu | Install Vagrant
-  package: name=vagrant
+  package: 
+    name: vagrant
   when: is_ubuntu
-  tags: vagrant
+
+- name: OS X | Setup Vagrant tap
+  homebrew_tap:
+    name: markosamuli/vagrant
+    state: present
+  when: is_osx
+  
+- name: OS X | Install Vagrant
+  homebrew_cask:
+    name: vagrant18
+    state: present 
+  when: is_osx
