@@ -2,7 +2,12 @@
 # - src: caarlos0.eclipse
 - src: nodesource.node
 - src: kbrebanov.erlang
+
 - src: https://github.com/markosamuli/ansible-visual-studio-code
   name: markosamuli.visual-studio-code
+
 - src: https://github.com/markosamuli/ansible-terraform
   name: markosamuli.terraform
+
+- src: https://github.com/markosamuli/ansible-rbenv
+  name: markosamuli.rbenv  

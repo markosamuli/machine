@@ -49,7 +49,7 @@
 
     # Install Vagrant and Virtualbox early as well
     - include: tasks/vagrant.yml
-      tags: vagrant 
+      tags: vagrant
     - include: tasks/virtualbox.yml
       tags: virtualbox
 
@@ -61,14 +61,14 @@
     - include: tasks/atom.yml
     - include: tasks/awscli.yml
       tags: aws
-    
+
     - include: tasks/corebird.yml
       when: is_ubuntu
     - include: tasks/gitkraken.yml
       tags: gitkraken
-      
+
     - include: tasks/google-cloud-sdk.yml
-    - include: tasks/chrome.yml    
+    - include: tasks/chrome.yml
     - include: tasks/dbeaver.yml
 
     - include: tasks/firefox.yml
@@ -105,7 +105,7 @@
       tags: vpn
 
     # - include: tasks/whatsapp.yml
-  
+
 - hosts: localhost
   vars:
     - nodejs_version: 6.x
@@ -114,11 +114,11 @@
 
     - role: nodesource.node
       when: is_ubuntu
-      tags: 
+      tags:
       - node
 
     - role: markosamuli.visual-studio-code
-      tags: 
+      tags:
       - visual-studio-code
       - vscode
 
@@ -128,7 +128,11 @@
       tags:
       - elixir
       - erlang
-    
+
+    - role: markosamuli.rbenv
+      tags:
+      - rbenv
+
     - role: markosamuli.terraform
       tags:
       - terraform
@@ -137,5 +141,5 @@
   tasks:
     # Needs to be instaled after Erlang on Ubuntu
     - include: tasks/elixir.yml
-      tags: 
+      tags:
        - elixir
