@@ -57,10 +57,12 @@
   with_items:
     - jq   
 
-- name: Gets the zsh path
+- name: Gets homebrew zsh path
   shell: which zsh
   register: bin_zsh
+  when: is_osx
 
 - name: Add homebrew zsh to /etc/shells
   lineinfile: dest=/etc/shells line='{{ bin_zsh.stdout }}'
   become: True
+  when: is_osx
