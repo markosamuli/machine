@@ -1,29 +1,82 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+run_playbook=1
+
+install_roles=1
+install_ansible=1
+install_homebrew=1
+
+ansible_tags=""
+list_tags=0
+
+function show_help {
+  echo "Usage: $0"
+  echo " -h         Show this help"
+  echo " -n         Do not run Ansible playbook"
+  echo " -q         Do not install Ansible requirements"
+  echo " -l         List available Ansible tags"
+  echo " -t TAGS    Run Ansible with the given comma separated list of tags"
+}
+
+while getopts ":hcnqlt:" opt; do
+  case $opt in
+    h)
+      show_help
+      exit 0
+      ;;
+    n)
+      run_playbook=0
+      ;;
+    q)
+      install_roles=0
+      install_ansible=0
+      install_homebrew=0
+      ;;
+    l)
+      list_tags=1
+      run_playbook=0
+      ;;
+    t)
+      ansible_tags=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      show_help
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
 
 if test "$(uname)" = "Darwin"; then
-  if test ! $(which gcc); then
-    echo "Installing xcode..."
-    xcode-select --install
+  if [ "$install_homebrew" == "1" ]; then
+    if test ! $(which gcc); then
+      echo "Installing xcode..."
+      xcode-select --install
+    fi
+    if test ! "$(which brew)"; then
+      echo "Installing homebrew..."
+      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
   fi
-  if test ! "$(which brew)"; then
-    echo "Installing homebrew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  #else
-  #  brew update
-  fi
-  if test ! "$(which ansible)"; then
-    echo "Installing ansible..."
-    brew install ansible
-  # else
-  #  brew upgrade ansible
+  if [ "$install_ansible" == "1" ]; then
+    if test ! "$(which ansible)"; then
+      echo "Installing ansible..."
+      brew install ansible
+    fi
   fi
 elif test "$(uname)" = "Linux"; then
-  if test -f /etc/lsb-release -a ! "$(which ansible)"; then
-    echo "Installing ansible..."
-    sudo apt-get install -y software-properties-common
-    sudo apt-add-repository -y ppa:ansible/ansible
-    sudo apt-get update
-    sudo apt-get install -y ansible
+  if [ "$install_ansible" == "1" ]; then
+    if test -f /etc/lsb-release -a ! "$(which ansible)"; then
+      echo "Installing ansible..."
+      sudo apt-get install -y software-properties-common
+      sudo apt-add-repository -y ppa:ansible/ansible
+      sudo apt-get update
+      sudo apt-get install -y ansible
+    fi
   fi
   if ! cat ansible.cfg | grep -q "become = True"; then
     printf '\n%s\n%s\n' '[privilege_escalation]' 'become = True' >> ansible.cfg
@@ -38,15 +91,26 @@ fi
 
 python --version
 ansible --version
-ansible-galaxy install -r requirements.yml -p roles || { echo "Failed to install Ansible roles"; exit 1; }
 
-if [[ "$1" == "--skip-playbook" ]]; then
-  echo "Skipping Ansible playbook execution"
-  shift
-  exit 0
+if [ "$install_roles" == "1" ]; then
+  ansible-galaxy install -r requirements.yml -p roles || { echo "Failed to install Ansible roles"; exit 1; }
 fi
 
-ansible-playbook main.yml $@
+if [ "$list_tags" == "1" ]; then
+  
+  ansible-playbook main.yml --list-tags
+
+elif [ "$run_playbook" == "1" ]; then
+
+  ansible_opts=""
+
+  if [ "$ansible_tags" != "" ]; then
+    ansible_opts="--tags=$ansible_tags $ansible_opts"
+  fi
+
+  ansible-playbook main.yml $ansible_opts
+  
+fi
 
 # I don't have a bootstrap script for my dotfiles
 # test -d ~/.dotfiles && cd $_ && ./script/bootstrap
