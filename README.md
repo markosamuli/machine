@@ -18,6 +18,7 @@ quite nicely as I can keep all the files in one place.
 - [kbrebanov.erlang](https://github.com/kbrebanov/ansible-erlang)
 - [markosamuli.visual-studio-code](https://github.com/markosamuli/ansible-visual-studio-code)
 - [markosamuli.terraform](https://github.com/markosamuli/ansible-terraform)
+- [markosamuli.rbenv](https://github.com/markosamuli/ansible-rbenv)
 
 ## Homebrew Taps
 
