@@ -8,14 +8,14 @@ if test "$(uname)" = "Darwin"; then
   if test ! "$(which brew)"; then
     echo "Installing homebrew..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  else
-    brew update
+  #else
+  #  brew update
   fi
   if test ! "$(which ansible)"; then
     echo "Installing ansible..."
     brew install ansible
-  else
-    brew upgrade ansible
+  # else
+  #  brew upgrade ansible
   fi
 elif test "$(uname)" = "Linux"; then
   if test -f /etc/lsb-release -a ! "$(which ansible)"; then
