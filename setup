@@ -108,7 +108,7 @@ elif [ "$run_playbook" == "1" ]; then
   
   if [ "$ansible_become" == "1" ]; then
     ansible_opts="--become $ansible_opts"
-    sudo true | exit 1
+    sudo true || exit 1
   fi
 
   ansible-playbook main.yml $ansible_opts
