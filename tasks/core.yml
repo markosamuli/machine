@@ -52,6 +52,11 @@
     - ncdu
     - tree
 
+- name: Install useful tools
+  package: name={{ item }}
+  with_items:
+    - jq   
+
 - name: Gets the zsh path
   shell: which zsh
   register: bin_zsh

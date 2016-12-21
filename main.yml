@@ -25,6 +25,8 @@
     - include: tasks/apt.yml
     #- include: tasks/homebrew.yml
     - include: tasks/core.yml
+      tags:
+        - tools
     #- include: tasks/dotfiles.yml
 
     # Install programming languages
