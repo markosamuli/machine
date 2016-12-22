@@ -1,4 +1,31 @@
-- name: Ubuntu | Install Virtualbox
-  package: name=virtualbox
+---
+
+- name: Ubuntu | Import the Oracle Virtualbox public key
+  apt_key: 
+    url: "{{ item }}"
+  with_items:
+    - "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
+    - "https://www.virtualbox.org/download/oracle_vbox.asc"
   when: is_ubuntu
-  tags: virtualbox
+
+- name: Ubuntu | Add Oracle Virtualbox repository
+  apt_repository: 
+    repo: "deb http://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release | lower }} contrib"
+  when: is_ubuntu
+
+- name: Ubuntu | Install DKMS package
+  package:
+    name: dkms
+  when: is_ubuntu
+
+- name: Ubuntu | Remove old Virtualbox versions
+  package:
+    name: virtualbox
+    state: absent
+  when: is_ubuntu
+
+- name: Ubuntu | Install Virtualbox 5.1
+  package: 
+    name: virtualbox-5.1
+    state: latest
+  when: is_ubuntu
