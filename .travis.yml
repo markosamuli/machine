@@ -14,8 +14,6 @@ env:
   - ANSIBLE_TAGS=erlang,elixir
   # Golang
   - ANSIBLE_TAGS=golang
-  # Terraform
-  - ANSIBLE_TAGS=terraform
   # Node.js
   - ANSIBLE_TAGS=node
 

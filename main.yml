@@ -126,7 +126,6 @@
       tags:
       - elixir
       - erlang
-
     
     - role: markosamuli.terraform
       tags:
