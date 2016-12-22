@@ -1,9 +1,23 @@
---
+---
+
+- set_fact:
+    vagrant_version: "1.8.7"
+
+- set_fact:
+    vagrant_arch: "x86_64"
+  when: ansible_architecture == "x86_64"
+
+- set_fact:
+    vagrant_arch: "i686"
+  when: ansible_architecture == "i386"
+
+- set_fact:
+    vagrant_deb: "https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_{{ vagrant_arch }}.deb"
+  when: is_ubuntu
 
 - name: Ubuntu | Install Vagrant
-  package: 
-    name: vagrant
-    state: latest
+  apt: 
+    deb: "{{ vagrant_deb }}"
   when: is_ubuntu
 
 - name: OS X | Setup Vagrant tap
