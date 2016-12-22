@@ -29,3 +29,8 @@
     name: virtualbox-5.1
     state: latest
   when: is_ubuntu
+
+- name: OS X | Install Virtualbox with Homebrew
+  homebrew_cask:
+    name: virtualbox
+  when: is_osx
