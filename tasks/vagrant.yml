@@ -1,6 +1,9 @@
+--
+
 - name: Ubuntu | Install Vagrant
   package: 
     name: vagrant
+    state: latest
   when: is_ubuntu
 
 - name: OS X | Setup Vagrant tap
