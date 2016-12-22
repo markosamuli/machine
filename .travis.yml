@@ -34,7 +34,7 @@ script:
   - git config --global user.email "test@localhost"
   
   # Run init only
-  - ./setup --skip-playbook
+  - ./setup -n
 
   # Check syntax only
   - ansible-playbook main.yml --syntax-check
