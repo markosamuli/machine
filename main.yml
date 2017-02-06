@@ -49,7 +49,9 @@
 
     # Install Vagrant and Virtualbox early as well
     - include: tasks/vagrant.yml
+      tags: vagrant 
     - include: tasks/virtualbox.yml
+      tags: virtualbox
 
     # Firewall
     - include: tasks/ufw.yml

@@ -16,6 +16,8 @@ env:
   - ANSIBLE_TAGS=golang
   # Node.js
   - ANSIBLE_TAGS=node
+  # Vagrant
+  - ANSIBLE_TAGS=vagrant
 
 notifications:
   email: false
