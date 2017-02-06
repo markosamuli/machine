@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 run_playbook=1
+syntax_check=0
 
 install_roles=1
 install_ansible=1
@@ -16,10 +17,11 @@ function show_help {
   echo " -n         Do not run Ansible playbook"
   echo " -q         Do not install Ansible requirements"
   echo " -l         List available Ansible tags"
+  echo " -s         Ansible playbook syntax check"
   echo " -t TAGS    Run Ansible with the given comma separated list of tags"
 }
 
-while getopts ":hcnqlt:" opt; do
+while getopts ":hcnqlst:" opt; do
   case $opt in
     h)
       show_help
@@ -35,6 +37,10 @@ while getopts ":hcnqlt:" opt; do
       ;;
     l)
       list_tags=1
+      run_playbook=0
+      ;;
+    s)
+      syntax_check=1
       run_playbook=0
       ;;
     t)
@@ -95,8 +101,12 @@ if [ "$install_roles" == "1" ]; then
 fi
 
 if [ "$list_tags" == "1" ]; then
-  
+
   ansible-playbook main.yml --list-tags
+
+elif [ "$syntax_check" == "1" ]; then
+
+  ansible-playbook main.yml --syntax-check
 
 elif [ "$run_playbook" == "1" ]; then
 
@@ -105,14 +115,14 @@ elif [ "$run_playbook" == "1" ]; then
   if [ "$ansible_tags" != "" ]; then
     ansible_opts="--tags=$ansible_tags $ansible_opts"
   fi
-  
+
   if [ "$ansible_become" == "1" ]; then
     ansible_opts="--become $ansible_opts"
     sudo true || exit 1
   fi
 
   ansible-playbook main.yml $ansible_opts
-  
+
 fi
 
 # I don't have a bootstrap script for my dotfiles
