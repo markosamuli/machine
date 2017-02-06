@@ -8,16 +8,7 @@ os:
   - osx
 
 env:
-  # GitKraken
-  - ANSIBLE_TAGS=gitkraken
-  # Elixir and Erlang
-  - ANSIBLE_TAGS=erlang,elixir
-  # Golang
-  - ANSIBLE_TAGS=golang
-  # Node.js
-  - ANSIBLE_TAGS=node
-  # Vagrant
-  - ANSIBLE_TAGS=vagrant
+  - ANSIBLE_TAGS=gitkraken,erlang,elixir,golang,node,vagrant
 
 notifications:
   email: false
