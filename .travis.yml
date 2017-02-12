@@ -8,7 +8,9 @@ os:
   - osx
 
 env:
-  - ANSIBLE_TAGS=gitkraken,erlang,elixir,golang,node,vagrant
+  - ANSIBLE_TAGS=tools TEST_SCRIPT=tools
+  - ANSIBLE_TAGS=erlang,elixir,golang,node TEST_SCRIPT=languages
+  - ANSIBLE_TAGS=gitkraken,vscode,vagrant TEST_SCRIPT=development
 
 notifications:
   email: false
@@ -41,3 +43,5 @@ script:
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
+
+  - ./tests/$TEST_SCRIPT

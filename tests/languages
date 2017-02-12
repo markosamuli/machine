@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -ex
+command -v node
+command -v iex
+command -v erl
+command -v go
+command -v python

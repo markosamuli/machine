@@ -1,0 +1,4 @@
+---
+
+- name: Install Node
+  package: name=nodejs

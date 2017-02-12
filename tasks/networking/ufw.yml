@@ -2,20 +2,15 @@
 
 - name: Ubuntu | Enable UFW
   ufw: state=enabled
-  tags: ufw
 
 - name: Ubuntu | Allow all outgoing traffic
   ufw: policy=allow direction=outgoing
-  tags: ufw  
 
 - name: Ubuntu | Deny all incoming traffic
   ufw: policy=deny direction=incoming
-  tags: ufw  
 
 - name: Ubuntu | Enable UFW logging
   ufw: logging=on
-  tags: ufw
 
 - name: Ubuntu | Install Gufw (GUI for UFW)
   package: name=gufw
-  tags: ufw

@@ -8,12 +8,14 @@ install_ansible=1
 install_homebrew=1
 
 ansible_tags=""
+ansible_verbose=0
 ansible_become=0
 list_tags=0
 
 function show_help {
   echo "Usage: $0"
   echo " -h         Show this help"
+  echo " -v         Verbose mode"
   echo " -n         Do not run Ansible playbook"
   echo " -q         Do not install Ansible requirements"
   echo " -l         List available Ansible tags"
@@ -21,7 +23,7 @@ function show_help {
   echo " -t TAGS    Run Ansible with the given comma separated list of tags"
 }
 
-while getopts ":hcnqlst:" opt; do
+while getopts ":hcnqlsvt:" opt; do
   case $opt in
     h)
       show_help
@@ -42,6 +44,9 @@ while getopts ":hcnqlst:" opt; do
     s)
       syntax_check=1
       run_playbook=0
+      ;;
+    v)
+      ansible_verbose=1
       ;;
     t)
       ansible_tags=$OPTARG
@@ -97,7 +102,12 @@ python --version
 ansible --version
 
 if [ "$install_roles" == "1" ]; then
+  echo "Installing Ansible roles..."
   ansible-galaxy install -r requirements.yml -p roles || { echo "Failed to install Ansible roles"; exit 1; }
+  if test "$(uname)" = "Linux"; then
+    echo "Patching kbrebanov.erlang role..."
+    sed -i 's/update_cache: yes/update_cache: no/' roles/kbrebanov.erlang/tasks/Ubuntu.yml || { echo "Failed to patch"; exit 1; }
+  fi
 fi
 
 if [ "$list_tags" == "1" ]; then
@@ -111,6 +121,10 @@ elif [ "$syntax_check" == "1" ]; then
 elif [ "$run_playbook" == "1" ]; then
 
   ansible_opts=""
+
+  if [ "$ansible_verbose" == "1" ]; then
+    ansible_opts="-v $ansible_opts"
+  fi
 
   if [ "$ansible_tags" != "" ]; then
     ansible_opts="--tags=$ansible_tags $ansible_opts"

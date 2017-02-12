@@ -1,6 +1,8 @@
-- hosts: localhost
-  tasks:
+---
 
+- name: Setup variables
+  hosts: localhost
+  tasks:
     - name: Set OS and environment facts
       set_fact:
         is_ci: "{{ ansible_env.TRAVIS_JOB_ID is defined }}"
@@ -9,133 +11,197 @@
         is_linux: "{{ ansible_system == 'Linux' }}"
         is_ubuntu: "{{ ansible_distribution == 'Ubuntu' }}"
       tags: always
-
     - name: Set Ubuntu version facts
       set_fact:
         is_ubuntu13_plus: "{{ is_ubuntu and ansible_distribution_version|int >= 13 }}"
         is_ubuntu15_plus: "{{ is_ubuntu and ansible_distribution_version|int >= 15 }}"
       tags: always
 
-- hosts: localhost
-  vars:
-    - node_version: 6
+- name: Install essential tools and system packages
+  hosts: localhost
   tasks:
-
-    # essentials:
-    - include: tasks/apt.yml
-    #- include: tasks/homebrew.yml
-    - include: tasks/core.yml
+    - include: tasks/ubuntu/apt.yml
+      when: is_ubuntu
       tags:
-        - tools
-    #- include: tasks/dotfiles.yml
-
-    # Install programming languages
-    - include: tasks/python.yml
-    - include: tasks/golang.yml
-      tags: golang
-
-    - include: tasks/node.yml
+      - apt
+      - base
+    - include: tasks/osx/homebrew.yml
       when: is_osx
-      tags: node
-
-    # - include: tasks/erlang.yml
-    #   when: is_ubuntu
-    #   tags:
-    #    - erlang
-    #    - elixir
-
-    # Docker installs Kernel updates, install before other software
-    - include: tasks/docker.yml
-
-    # Install Vagrant and Virtualbox early as well
-    - include: tasks/vagrant.yml
-      tags: vagrant 
-    - include: tasks/virtualbox.yml
-      tags: virtualbox
-
-    # Firewall
-    - include: tasks/ufw.yml
+      tags:
+      - homebrew
+      - base
+    - include: tasks/common/core.yml
+      tags:
+      - tools
+      - base
+    - include: tasks/ubuntu/core.yml
       when: is_ubuntu
-
-    # specific stuff than can be commented out:
-    - include: tasks/atom.yml
-    - include: tasks/awscli.yml
-      tags: aws
-    
-    - include: tasks/corebird.yml
-      when: is_ubuntu
-    - include: tasks/gitkraken.yml
-      tags: gitkraken
-      
-    - include: tasks/google-cloud-sdk.yml
-    - include: tasks/chrome.yml    
-    - include: tasks/dbeaver.yml
-
-    - include: tasks/firefox.yml
-    # - include: tasks/diffmerge.yml
-    # - include: tasks/dropbox.yml
-    # - include: tasks/google-drive.yml
-    # - include: tasks/intellij.yml
-    # - include: tasks/ngrok.yml
-    # - include: tasks/postgres.yml
-    - include: tasks/packer.yml
-      tags: packer
-
-    - include: tasks/playdeb.yml
-    - include: tasks/pycharm.yml
-    # - include: tasks/quicklook.yml
-    # - include: tasks/ruby.yml
-    # - include: tasks/skype.yml
-
-    - include: tasks/slack.yml
+      tags:
+      - tools
+      - base
+    - include: tasks/osx/core.yml
       when: is_osx
-    - include: tasks/scudcloud.yml
+      tags:
+      - tools
+      - base
+    - include: tasks/common/terminal.yml
+      tags:
+      - terminal
+      - base
+    - include: tasks/networking/ufw.yml
       when: is_ubuntu
+      tags:
+      - ufw
+      - firewall
 
-    # - include: tasks/slate.yml
-    - include: tasks/spotify.yml
-    # - include: tasks/sublime-text.yml
-    - include: tasks/telegram.yml
-    - include: tasks/terminal.yml
-
-    # Using markosamuli.visual-studio-code instead
-    # - include: tasks/visual-studio-code.yml
-    - include: tasks/vlc.yml
-    - include: tasks/vpn.yml
-      tags: vpn
-
-    # - include: tasks/whatsapp.yml
-  
-- hosts: localhost
+- name: Install programming languages
+  hosts: localhost
   vars:
-    - nodejs_version: 6.x
+    - nodejs_version: 7.x
     - erlang_version: 19.2
+  pre_tasks:
+    # Installed Python before other languages
+    - include: tasks/languages/python.yml
+      tags:
+      - python
+      - languages
   roles:
-
     - role: nodesource.node
       when: is_ubuntu
-      tags: 
+      tags:
       - node
-
-    - role: markosamuli.visual-studio-code
-      tags: 
-      - visual-studio-code
-      - vscode
-
-    # The role fails if trying to run it on OS X
+      - languages
+    # The kbrebanov.erlang role fails if trying to run it on OS X
     - role: kbrebanov.erlang
       when: is_ubuntu
       tags:
       - elixir
       - erlang
-    
+      - languages
+  tasks:
+    - include: tasks/languages/node.yml
+      when: is_osx
+      tags:
+      - node
+      - languages
+    - include: tasks/languages/golang.yml
+      tags:
+      - golang
+      - languages
+  post_tasks:
+    # Elixir needs to be installed after Erlang on Ubuntu, Homebrew installs it automatically on OS X
+    - include: tasks/languages/elixir.yml
+      tags:
+       - elixir
+       - languages
+
+- name: Install IDEs and other development tools
+  hosts: localhost
+  roles:
+    - role: markosamuli.visual-studio-code
+      tags:
+      - visual-studio-code
+      - vscode
+      - development
+  tasks:
+    - include: tasks/development/docker.yml
+      when: isnt_ci
+      tags:
+      - devops
+      - development
+    - include: tasks/development/vagrant.yml
+      tags:
+      - vagrant
+      - development
+    - include: tasks/development/virtualbox.yml
+      when: isnt_ci
+      tags:
+      - virtualbox
+      - development
+    - include: tasks/development/atom.yml
+      tags:
+      - atom
+      - development
+    - include: tasks/development/gitkraken.yml
+      tags:
+      - gitkraken
+      - development
+    - include: tasks/development/pycharm.yml
+      tags:
+      - development
+      - pycharm
+    - include: tasks/development/dbeaver.yml
+      tags:
+      - database
+      - development
+
+- name: Install Cloud and DevOps tools
+  hosts: localhost
+  roles:
     - role: markosamuli.terraform
       tags:
       - terraform
-
-- hosts: localhost
+      - devops
+      - cloud
+    - role: markosamuli.packer
+      tags:
+      - packer
+      - devops
+      - cloud
   tasks:
-    # Needs to be instaled after Erlang on Ubuntu
-    - include: tasks/elixir.yml
-      tags: 
-       - elixir
+    - include: tasks/cloud/awscli.yml
+      tags:
+      - aws
+      - devops
+      - cloud
+    - include: tasks/cloud/google-cloud-sdk.yml
+      tags:
+      - gcloud
+      - development
+      - devops
+      - cloud
+
+- name: Install browsers, media players, messaging tools, games and other fun stuff
+  hosts: localhost
+  tasks:
+    - include: tasks/browsers/chrome.yml
+      tags:
+      - chrome
+      - browsers
+    - include: tasks/browsers/firefox.yml
+      tags:
+      - firefox
+      - browsers
+    - include: tasks/media/spotify.yml
+      tags:
+      - spotify
+      - media
+    - include: tasks/media/vlc.yml
+      tags:
+      - vlc
+      - media
+    - include: tasks/messaging/slack.yml
+      when: is_osx
+      tags:
+      - slack
+      - messaging
+    - include: tasks/messaging/scudcloud.yml
+      when: is_ubuntu
+      tags:
+      - slack
+      - messaging
+    - include: tasks/messaging/telegram.yml
+      tags:
+      - telegram
+      - messaging
+    - include: tasks/messaging/corebird.yml
+      when: is_ubuntu
+      tags:
+      - messaging
+      - twitter
+    - include: tasks/games/playdeb.yml
+      tags:
+      - games
+    - include: tasks/networking/vpn.yml
+      tags:
+      - vpn
