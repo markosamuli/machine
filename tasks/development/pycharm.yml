@@ -1,6 +1,14 @@
 - name: Ubuntu | Add PyCharm repository
   apt_repository: repo='ppa:mystic-mirage/pycharm'
   when: is_ubuntu13_plus
+
 - name: Ubuntu | Install PyCharm
   package: name=pycharm
+  when: is_ubuntu13_plus
+
+- name: Ubuntu | Setup symlink to pycharm
+  file:
+    src: /usr/lib/pycharm/bin/pycharm.sh
+    dest: /usr/local/bin/charm
+    state: link
   when: is_ubuntu13_plus

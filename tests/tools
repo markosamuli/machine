@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -ex
+command -v whois
+command -v htop
+command -v wget
+command -v curl
+command -v git

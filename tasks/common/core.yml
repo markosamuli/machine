@@ -1,0 +1,20 @@
+---
+
+- name: Common | Install core packages
+  package:
+    name: "{{ item }}"
+  with_items:
+    - curl
+    - git
+    - htop
+    - vim
+    - wget
+    - zsh
+
+- name: Common | Install useful tools
+  package:
+    name: "{{ item }}"
+  with_items:
+    - jq
+    - ncdu
+    - tree

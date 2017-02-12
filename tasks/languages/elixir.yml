@@ -1,4 +1,5 @@
 ---
 
 - name: Install Elixir
-  package: name=elixir
+  package:
+    name: elixir

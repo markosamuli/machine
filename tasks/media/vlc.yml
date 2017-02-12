@@ -1,14 +1,11 @@
 - name: Ubuntu | Install VLC
   package: name=vlc
   when: is_ubuntu
-  tags: vlc
 
 - name: Ubuntu | Install support for restricted formats
   package: name=ubuntu-restricted-extras
   when: is_ubuntu
-  tags: vlc
 
 - name: OS X | Install VLC
   homebrew_cask: name=vlc
   when: is_osx
-  tags: vlc

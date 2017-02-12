@@ -1,8 +1,13 @@
-# - src: caarlos0.java-dev
-# - src: caarlos0.eclipse
+---
+
+# Ubuntu roles
 - src: nodesource.node
 - src: kbrebanov.erlang
+
+# Shared roles
 - src: https://github.com/markosamuli/ansible-visual-studio-code
   name: markosamuli.visual-studio-code
 - src: https://github.com/markosamuli/ansible-terraform
   name: markosamuli.terraform
+- src: https://github.com/markosamuli/ansible-packer
+  name: markosamuli.packer

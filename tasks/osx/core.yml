@@ -1,0 +1,29 @@
+---
+
+# - name: Install OSX-only core packages
+#   package: name={{ item }}
+#   with_items:
+#     - coreutils
+#     - findutils
+#     - gawk
+#     - gnu-getopt
+#     - gnu-indent
+#     - gnu-sed
+#     - gnu-tar
+#     - gnutls
+#     - gpg
+#     - grc
+#     - pstree
+#     - unrar
+#     - watch
+
+- name: OS X | Gets homebrew zsh path
+  shell: which zsh
+  register: bin_zsh
+  changed_when: False
+
+- name: OS X | Add homebrew zsh to /etc/shells
+  lineinfile:
+    dest: /etc/shells
+    line: "{{ bin_zsh.stdout }}"
+  become: True

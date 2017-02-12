@@ -1,3 +1,5 @@
+---
+
 - name: Download dotfiles
   git:
     repo=https://github.com/markosamuli/dotfiles.git
@@ -5,6 +7,7 @@
     version=master
     update=yes
   become: false
+
 - name: Set zsh as default shell
   shell: chsh -s /bin/zsh
   when: isnt_ci

@@ -1,7 +1,10 @@
-- name: Ubuntu | Update apt
-  apt: update_cache=yes
-  when: is_ubuntu
-  tags: apt
+---
+
+- name: Ubuntu | Update APT cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: isnt_ci
 
 - name: Ubuntu | Add APT support for transport over HTTPS
   apt:
@@ -10,5 +13,3 @@
   with_items:
    - apt-transport-https
    - ca-certificates
-  when: is_ubuntu
-  tags: apt

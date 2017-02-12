@@ -1,0 +1,31 @@
+---
+
+# - name: Install ubuntu-restricted-extras
+#   package: name=ubuntu-restricted-extras
+#   when: is_ubuntu
+#   ignore_errors: True # case multiverse repo is not enabled
+
+- name: Ubuntu | Install Ubuntu-only core packages
+  package:
+    name: "{{ item }}"
+  with_items:
+    - build-essential
+    - xsel
+
+- name: Ubuntu | Install OpenSSH server
+  package:
+    name: "{{ item }}"
+  with_items:
+    - openssh-server
+
+- name: Ubuntu | Install Samba client
+  package:
+    name: "{{ item }}"
+  with_items:
+    - smbclient
+
+- name: Ubuntu | Install networking tools
+  package:
+    name: "{{ item }}"
+  with_items:
+    - whois
