@@ -1,0 +1,10 @@
+---
+
+- name: OS X | Install hub with Homebrew
+  package:
+    name: "hub"
+  when: is_osx
+
+- name: Ubuntu | Install hub from GitHub binary
+  include: hub_ubuntu.yml
+  when: is_ubuntu

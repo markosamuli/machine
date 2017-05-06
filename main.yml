@@ -134,6 +134,11 @@
       tags:
       - database
       - development
+    - include: tasks/development/hub.yml
+      tags:
+      - github
+      - hub
+      - development
 
 - name: Install Cloud and DevOps tools
   hosts: localhost

@@ -1,0 +1,45 @@
+---
+
+- name: Linux | Set hub version
+  set_fact:
+    hub_version: 2.3.0-pre9
+
+- name: Linux | Create directory for hub
+  file:
+    path: "/opt/hub"
+    state: directory
+
+- name: Linux | Check if hub has already been installed
+  stat:
+    path: /opt/hub/{{ hub_version }}
+  register: hub_stat
+
+- name: Linux | Download hub binary from GitHub
+  get_url:
+    url: https://github.com/github/hub/releases/download/v{{ hub_version }}/hub-linux-amd64-{{ hub_version }}.tgz
+    dest: "/opt/hub/hub-linux-amd64-{{ hub_version }}.tgz"
+    mode: 0755
+    checksum: sha256:9d1f0067bf4901739cff8951668af747483d77c2a47e15afcf6ae72eaffaf199
+  when: not hub_stat.stat.exists
+
+- name: Linux | Extract hub binary
+  unarchive:
+    src: /opt/hub/hub-linux-amd64-{{ hub_version }}.tgz
+    dest: /opt/hub
+    creates: /opt/hub/hub-linux-amd64-{{ hub_version }}
+  when: not hub_stat.stat.exists
+
+- name: Linux | Rename hub directory
+  command: mv /opt/hub/hub-linux-amd64-{{ hub_version }} /opt/hub/{{ hub_version }}
+  when: not hub_stat.stat.exists
+
+- name: Linux | Cleanup installation files
+  file:
+    path: /opt/hub/hub-linux-amd64-{{ hub_version }}.tgz
+    state: absent
+
+- name: Linux | Symlink hub to /usr/local/bin
+  file:
+    src: "/opt/hub/{{ hub_version }}/bin/hub"
+    dest: "/usr/local/bin/hub"
+    state: link
