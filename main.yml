@@ -78,6 +78,15 @@
       - elixir
       - erlang
       - languages
+    - role: markosamuli.haskell
+      when: is_ubuntu
+      tags:
+      - haskell
+      - languages
+    - role: markosamuli.elm
+      tags:
+      - elm
+      - languages
   tasks:
     - include: tasks/languages/node.yml
       when: is_osx
