@@ -26,7 +26,7 @@ function show_help {
   echo " -p PACKAGE Run Ansible with given predefined package"
 }
 
-while getopts ":hcnqlsvpt:" opt; do
+while getopts ":hcnqlsvp:t:" opt; do
   case $opt in
     h)
       show_help
@@ -74,6 +74,7 @@ if [ "$package" != "" ]; then
     echo "FAILED: You can't combine -t and -p options"
     exit 1
   fi
+  echo "Installing dependencies for package '$package'..."
   case $package in
     tools)
       ansible_tags="tools"
