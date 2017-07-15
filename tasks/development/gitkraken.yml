@@ -1,7 +1,15 @@
 ---
 
 - name: Ubuntu | Install GitKraken
-  apt: deb=https://release.gitkraken.com/linux/gitkraken-amd64.deb
+  apt:
+    deb: https://release.gitkraken.com/linux/gitkraken-amd64.deb
+  when: is_ubuntu and ansible_architecture == "x86_64"
+
+- name: Ubuntu | Symlink gitkraken to /usr/bin
+  file:
+    src: "/usr/share/gitkraken/gitkraken"
+    dest: "/usr/bin/gitkraken"
+    state: link
   when: is_ubuntu and ansible_architecture == "x86_64"
 
 - name: OS X | Install GitKraken
