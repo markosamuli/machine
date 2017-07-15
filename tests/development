@@ -3,3 +3,6 @@
 set -ex
 command -v vagrant
 command -v code
+
+set +e
+[ "$(vagrant --version)" == "Vagrant 1.9.7" ] || exit 1
