@@ -8,9 +8,17 @@ os:
   - osx
 
 env:
-  - ANSIBLE_TAGS=tools TEST_SCRIPT=tools
-  - ANSIBLE_TAGS=erlang,elixir,golang,node TEST_SCRIPT=languages
-  - ANSIBLE_TAGS=gitkraken,vscode,vagrant TEST_SCRIPT=development
+  - PACKAGE=tools
+  - PACKAGE=elixir
+  - PACKAGE=golang
+  - PACKAGE=nodejs
+  - PACKAGE=development
+  - PACKAGE=vagrant
+
+# matrix:
+#   exclude:
+#   - os: linux
+#     env: PACKAGE=elixir
 
 notifications:
   email: false
@@ -18,7 +26,6 @@ notifications:
 install:
   - sudo pip install urllib3 pyopenssl ndg-httpsclient pyasn1
   - sudo pip install git+git://github.com/ansible/ansible.git@stable-2.2
-
 
 before_script:
   # https://github.com/travis-ci/travis-ci/issues/6307
@@ -34,14 +41,14 @@ script:
   # Check syntax only
   - ./setup -q -s
 
-  # Run playbooks with the selected tags only
-  - ./setup -q -t $ANSIBLE_TAGS
+  # Run playbooks with the selected package name only
+  - ./setup -q -p $PACKAGE
 
   # Idempotence test
   - >
-    ./setup -q -t $ANSIBLE_TAGS
+    ./setup -q -p $PACKAGE
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  - ./tests/$TEST_SCRIPT
+  - ./tests/$PACKAGE

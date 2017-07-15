@@ -12,6 +12,8 @@ ansible_verbose=0
 ansible_become=0
 list_tags=0
 
+package=""
+
 function show_help {
   echo "Usage: $0"
   echo " -h         Show this help"
@@ -21,6 +23,7 @@ function show_help {
   echo " -l         List available Ansible tags"
   echo " -s         Ansible playbook syntax check"
   echo " -t TAGS    Run Ansible with the given comma separated list of tags"
+  echo " -p PACKAGE Run Ansible with given predefined package"
 }
 
 while getopts ":hcnqlsvt:" opt; do
@@ -48,6 +51,9 @@ while getopts ":hcnqlsvt:" opt; do
     v)
       ansible_verbose=1
       ;;
+    p)
+      package=$OPTARG
+      ;;
     t)
       ansible_tags=$OPTARG
       ;;
@@ -62,6 +68,33 @@ while getopts ":hcnqlsvt:" opt; do
       ;;
   esac
 done
+
+if [ "$package" != "" ]; then
+  if [ "$ansible_tags" != "" ]; then
+    echo "FAILED: You can't combine -t and -p options"
+    exit 1
+  fi
+  case $package in
+    tools)
+      ansible_tags="tools"
+      ;;
+    elixir)
+      ansible_tags="erlang,elixir"
+      ;;
+    golang)
+      ansible_tags="golang"
+      ;;
+    nodejs)
+      ansible_tags="node"
+      ;;
+    development)
+      ansible_tags="git,gitkraken,vscode"
+      ;;
+    vagrant)
+      ansible_tags="vagrant,virtualbox"
+      ;;
+  esac
+fi
 
 if test "$(uname)" = "Darwin"; then
   if [ "$install_homebrew" == "1" ]; then

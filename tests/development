@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
 set -ex
-command -v vagrant
 command -v code
+command -v git
+command -v gitkraken
