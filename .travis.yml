@@ -15,10 +15,10 @@ env:
   - PACKAGE=development
   - PACKAGE=vagrant
 
-# matrix:
-#   exclude:
-#   - os: linux
-#     env: PACKAGE=elixir
+matrix:
+  exclude:
+  - os: linux
+    env: PACKAGE=elixir
 
 notifications:
   email: false
