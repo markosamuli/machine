@@ -1,8 +1,8 @@
 language: generic
 dist: trusty
 sudo: required
-python:
-  - 2.7
+# python:
+#   - 2.7
 os:
   - linux
   - osx
