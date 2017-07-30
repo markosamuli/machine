@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+set -ex
+test -e "/Applications/GitKraken.app"

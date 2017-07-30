@@ -51,4 +51,5 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  - ./tests/$PACKAGE
+  - if [[ -e "tests/$PACKAGE" ]]; then ./tests/$PACKAGE; fi
+  - if [[ -e "tests/$TRAVIS_OS_NAME/$PACKAGE" ]]; then ./tests/$TRAVIS_OS_NAME/$PACKAGE; fi

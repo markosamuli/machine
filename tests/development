@@ -3,4 +3,3 @@
 set -ex
 command -v code
 command -v git
-command -v gitkraken
