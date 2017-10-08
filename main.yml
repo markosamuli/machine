@@ -57,7 +57,6 @@
 - name: Install programming languages
   hosts: localhost
   vars:
-    - nodejs_version: 7.x
     - erlang_version: 19.2
   pre_tasks:
     # Installed Python before other languages

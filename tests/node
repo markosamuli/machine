@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -ex
+command -v nvm
+command -v node
