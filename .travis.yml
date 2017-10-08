@@ -9,7 +9,8 @@ os:
 
 env:
   - ANSIBLE_TAGS=tools TEST_SCRIPT=tools
-  - ANSIBLE_TAGS=erlang,elixir,golang,node TEST_SCRIPT=languages
+  - ANSIBLE_TAGS=golang TEST_SCRIPT=golang
+  - ANSIBLE_TAGS=node TEST_SCRIPT=node
   - ANSIBLE_TAGS=gitkraken,vscode,vagrant TEST_SCRIPT=development
 
 notifications:

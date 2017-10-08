@@ -3,4 +3,3 @@
 set -ex
 command -v vagrant
 command -v code
-command -v pyenv
