@@ -58,7 +58,7 @@
   hosts: localhost
   vars:
     - nodejs_version: 7.x
-    - erlang_version: 19.2
+    # - erlang_version: 19.2
   pre_tasks:
     # Installed Python before other languages
     - include: tasks/languages/python.yml
@@ -71,13 +71,13 @@
       tags:
       - node
       - languages
-    # The kbrebanov.erlang role fails if trying to run it on OS X
-    - role: kbrebanov.erlang
-      when: is_ubuntu
-      tags:
-      - elixir
-      - erlang
-      - languages
+    # # The kbrebanov.erlang role fails if trying to run it on OS X
+    # - role: kbrebanov.erlang
+    #   when: is_ubuntu
+    #   tags:
+    #   - elixir
+    #   - erlang
+    #   - languages
   tasks:
     - include: tasks/languages/node.yml
       when: is_osx
@@ -88,12 +88,12 @@
       tags:
       - golang
       - languages
-  post_tasks:
-    # Elixir needs to be installed after Erlang on Ubuntu, Homebrew installs it automatically on OS X
-    - include: tasks/languages/elixir.yml
-      tags:
-       - elixir
-       - languages
+  # post_tasks:
+  #   # Elixir needs to be installed after Erlang on Ubuntu, Homebrew installs it automatically on OS X
+  #   - include: tasks/languages/elixir.yml
+  #     tags:
+  #      - elixir
+  #      - languages
 
 - name: Install IDEs and other development tools
   hosts: localhost
