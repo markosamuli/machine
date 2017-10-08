@@ -28,7 +28,8 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then rm -rf /home/travis/.kiex; fi
   - rm -rf /etc/profile.d/kiex.sh
   # Remove Erlang support
-  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get remove erlang-base erlang erlang-base-hipe; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get remove erlang erlang-base erlang-base-hipe erlang-doc erlang-manpages erlang-mode; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get remove emacs23 emacs24; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get autoremove; fi
 
 install:
