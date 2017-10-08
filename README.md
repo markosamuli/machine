@@ -19,6 +19,7 @@ quite nicely as I can keep all the files in one place.
 - [markosamuli.visual-studio-code](https://github.com/markosamuli/ansible-visual-studio-code)
 - [markosamuli.terraform](https://github.com/markosamuli/ansible-terraform)
 - [markosamuli.packer](https://github.com/markosamuli/ansible-packer)
+- [markosamuli.aws-tools](https://github.com/markosamuli/ansible-aws-tools)
 
 ## Homebrew Taps
 

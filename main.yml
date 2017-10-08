@@ -148,12 +148,12 @@
       - packer
       - devops
       - cloud
-  tasks:
-    - include: tasks/cloud/awscli.yml
+    - role: markosamuli.aws-tools
       tags:
       - aws
       - devops
       - cloud
+  tasks:
     - include: tasks/cloud/google-cloud-sdk.yml
       tags:
       - gcloud
