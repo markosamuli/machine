@@ -28,6 +28,12 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -rf /Users/travis/.kiex; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then rm -rf /home/travis/.kiex; fi
   - rm -rf /etc/profile.d/kiex.sh
+  # Remove Erlang support
+  - >
+    if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
+      sudo apt-get remove erlang-base erlang erlang-base-hipe
+      sudo apt-get autoremove
+    fi
 
 install:
   - sudo pip install urllib3 pyopenssl ndg-httpsclient pyasn1
