@@ -10,20 +10,10 @@ os:
 env:
   - ANSIBLE_TAGS=tools TEST_SCRIPT=tools
   - ANSIBLE_TAGS=erlang,elixir,golang TEST_SCRIPT=languages
-  - ANSIBLE_TAGS=node,nvm TEST_SCRIPT=node
   - ANSIBLE_TAGS=gitkraken,vscode,vagrant TEST_SCRIPT=development
 
 notifications:
   email: false
-
-before_install:
-  # Cleanup existing NVM installation
-  - unset NVM_CD_FLAGS
-  - unset NVM_DIR
-  - unset NVM_BIN
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -rf /Users/travis/.nvm; fi
-  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then rm -rf /home/travis/.nvm; fi
-  - rm -rf /etc/profile.d/travis-nvm.sh
 
 install:
   - sudo pip install urllib3 pyopenssl ndg-httpsclient pyasn1
