@@ -1,7 +1,6 @@
 ---
 
 # Ubuntu roles
-- src: nodesource.node
 - src: kbrebanov.erlang
 
 # Shared roles
@@ -13,3 +12,5 @@
   name: markosamuli.packer
 - src: https://github.com/markosamuli/ansible-aws-tools
   name: markosamuli.aws-tools
+- src: https://github.com/markosamuli/ansible-nvm
+  name: markosamuli.nvm

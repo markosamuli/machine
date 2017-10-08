@@ -66,11 +66,11 @@
       - python
       - languages
   roles:
-    - role: nodesource.node
-      when: is_ubuntu
+    - role: markosamuli.nvm
       tags:
       - node
       - languages
+      - nvm
     # The kbrebanov.erlang role fails if trying to run it on OS X
     - role: kbrebanov.erlang
       when: is_ubuntu
@@ -79,11 +79,6 @@
       - erlang
       - languages
   tasks:
-    - include: tasks/languages/node.yml
-      when: is_osx
-      tags:
-      - node
-      - languages
     - include: tasks/languages/golang.yml
       tags:
       - golang
