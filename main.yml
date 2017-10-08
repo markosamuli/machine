@@ -103,6 +103,11 @@
       - visual-studio-code
       - vscode
       - development
+    - role: markosamuli.pyenv
+      tags:
+      - python
+      - pyenv
+      - development
   tasks:
     - include: tasks/development/docker.yml
       when: isnt_ci

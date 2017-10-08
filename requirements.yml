@@ -13,3 +13,5 @@
   name: markosamuli.packer
 - src: https://github.com/markosamuli/ansible-aws-tools
   name: markosamuli.aws-tools
+- src: https://github.com/markosamuli/ansible-pyenv
+  name: markosamuli.pyenv

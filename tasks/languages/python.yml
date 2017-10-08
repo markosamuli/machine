@@ -12,11 +12,3 @@
   pip:
     name: pip
     state: latest
-
-- name: Python | OS X | Install pyenv and pyenv-virtualenv
-  package:
-    name: '{{ item }}'
-  with_items:
-  - pyenv
-  - pyenv-virtualenv
-  when: is_osx
