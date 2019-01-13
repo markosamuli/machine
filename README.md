@@ -8,6 +8,14 @@ set up, more or less from scratch. I have not tested any of these on my OS X sys
 This is forked off from [caarlos0/machine](https://github.com/caarlos0/machine) with my 
 specific requirements and updates.
 
+## Not maintained
+
+I'm no longer maintaining this setup, but have split this into two separate repositories
+that I used for macOS and Ubuntu respectively.
+
+- [markosamuli/macos-machine](https://github.com/markosamuli/macos-machine) 
+- [markosamuli/linux-machine](https://github.com/markosamuli/linux-machine) 
+
 ## Ansible Roles
 
 [caarlos0](https://github.com/caarlos0) suggested splitting the tasks into roles that 
