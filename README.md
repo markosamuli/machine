@@ -28,6 +28,7 @@ quite nicely as I can keep all the files in one place.
 - [markosamuli.terraform](https://github.com/markosamuli/ansible-terraform)
 - [markosamuli.packer](https://github.com/markosamuli/ansible-packer)
 - [markosamuli.aws-tools](https://github.com/markosamuli/ansible-aws-tools)
+- [markosamuli.golang](https://github.com/markosamuli/ansible-golang)
 
 ## Homebrew Taps
 
